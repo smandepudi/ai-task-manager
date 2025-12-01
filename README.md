@@ -38,3 +38,11 @@ Sindhura Mandepudi - Built for portfolio showcase
 - **jsonwebtoken** - Creates authentication tokens for users
 - **bcryptjs** - Securely hashes passwords
 - **@google/generative-ai** - Google AI SDK (for our AI features!)
+
+
+## Run
+
+- Run on client. go in to the folder and run 'npm run dev' http://localhost:5173/
+- This will run the UI
+- Run on server. go in to the folder and run 'npm run dev' http://localhost:5001/
+- This will run the server code and return a JSON object.
