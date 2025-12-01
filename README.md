@@ -24,4 +24,17 @@ cd server && npm run dev
 
 ## Author
 
-Built for portfolio showcase
+Sindhura Mandepudi - Built for portfolio showcase
+
+## Installation
+
+-  npm install express cors dotenv jsonwebtoken bcryptjs @google/generative-ai
+**Intent:** "Download all the main libraries my backend needs to work"
+
+**Each package does:**
+- **express** - Web server framework (handles API routes)
+- **cors** - Allows frontend (client) to talk to backend (server)
+- **dotenv** - Loads environment variables (like API keys)
+- **jsonwebtoken** - Creates authentication tokens for users
+- **bcryptjs** - Securely hashes passwords
+- **@google/generative-ai** - Google AI SDK (for our AI features!)
