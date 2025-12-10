@@ -40,9 +40,26 @@ Sindhura Mandepudi - Built for portfolio showcase
 - **@google/generative-ai** - Google AI SDK (for our AI features!)
 
 
+
+## Database Setup
+
+- Database Setup (Supabase + Prisma)
+- We'll set up:
+    - Supabase account
+    - PostgreSQL database
+    - Prisma ORM
+    - Database models (User, Task, Subtask)
+
 ## Run
 
 - Run on client. go in to the folder and run 'npm run dev' http://localhost:5173/
 - This will run the UI
 - Run on server. go in to the folder and run 'npm run dev' http://localhost:5001/
 - This will run the server code and return a JSON object.
+
+## SetUp
+ai-task-manager/
+├── client/          ✅ React + TypeScript + Tailwind
+├── server/          ✅ Express + TypeScript + Prisma
+│   └── prisma/      ✅ Database models & migrations
+├── Database         ✅ Supabase PostgreSQL (3 tables!)

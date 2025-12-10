@@ -1,13 +1,14 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import authRoutes from './routes/auth.routes';
 
 // Load environment variables
 dotenv.config();
 
 // Create Express application
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors()); // Enable CORS for frontend
@@ -22,12 +23,15 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
+// API routes
+app.use('/api/auth', authRoutes);
+
 // API health endpoint
 app.get('/api/health', (req: Request, res: Response) => {
   res.json({ 
     status: 'ok',
-    database: 'not connected yet',
-    ai: 'not configured yet'
+    database: 'connected',
+    auth: 'enabled'
   });
 });
 
@@ -43,4 +47,5 @@ app.use((req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
   console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔐 Auth routes: /api/auth/register, /api/auth/login`);
 });
