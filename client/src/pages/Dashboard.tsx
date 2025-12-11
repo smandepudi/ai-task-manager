@@ -1,12 +1,45 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { removeToken } from '../services/auth.service';
+import { getAllTasks, type Task } from '../services/task.service';
+import CreateTaskForm from '../components/CreateTaskForm';
+import TaskList from '../components/TaskList';
 
 function Dashboard() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const fetchTasks = async () => {
+    try {
+      setLoading(true);
+      const data = await getAllTasks();
+      setTasks(data);
+      setError('');
+    } catch (err: any) {
+      setError('Failed to load tasks');
+      console.error('Error fetching tasks:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   const handleLogout = () => {
     removeToken();
     navigate('/login');
+  };
+
+  const handleTaskCreated = () => {
+    fetchTasks(); // Refresh the task list
+  };
+
+  const handleTaskDeleted = () => {
+    fetchTasks(); // Refresh the task list
   };
 
   return (
@@ -28,39 +61,32 @@ function Dashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="bg-white p-8 rounded-2xl shadow-lg">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Welcome to Your Dashboard! 🎉
           </h2>
-          <p className="text-gray-600 mb-6">
-            You're successfully logged in! Task management features coming soon...
+          <p className="text-gray-600">
+            Manage your tasks efficiently with AI-powered suggestions
           </p>
-          
-          <div className="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
-            <h3 className="text-lg font-semibold text-indigo-900 mb-2">
-              ✅ What's Working:
-            </h3>
-            <ul className="space-y-2 text-indigo-700">
-              <li>• User registration</li>
-              <li>• User login with JWT authentication</li>
-              <li>• Protected routes</li>
-              <li>• Token storage in localStorage</li>
-              <li>• Logout functionality</li>
-            </ul>
-          </div>
-
-          <div className="mt-6 bg-green-50 p-6 rounded-lg border border-green-200">
-            <h3 className="text-lg font-semibold text-green-900 mb-2">
-              🚀 Coming Next:
-            </h3>
-            <ul className="space-y-2 text-green-700">
-              <li>• Create and manage tasks</li>
-              <li>• AI-powered task suggestions</li>
-              <li>• Task prioritization</li>
-              <li>• Subtasks management</li>
-            </ul>
-          </div>
         </div>
+
+        {/* Create Task Form */}
+        <div className="mb-8">
+          <CreateTaskForm onTaskCreated={handleTaskCreated} />
+        </div>
+
+        {/* Task List */}
+        {loading ? (
+          <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200 text-center">
+            <p className="text-gray-500">Loading tasks...</p>
+          </div>
+        ) : error ? (
+          <div className="bg-red-50 p-4 rounded-lg border border-red-200 text-red-700">
+            {error}
+          </div>
+        ) : (
+          <TaskList tasks={tasks} onTaskDeleted={handleTaskDeleted} />
+        )}
       </main>
     </div>
   );

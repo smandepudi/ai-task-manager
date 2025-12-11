@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
+import taskRoutes from './routes/task.routes';
 
 // Load environment variables
 dotenv.config();
@@ -25,6 +26,8 @@ app.get('/', (req: Request, res: Response) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
+
+app.use('/api/tasks', taskRoutes);
 
 // API health endpoint
 app.get('/api/health', (req: Request, res: Response) => {
