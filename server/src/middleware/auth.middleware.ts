@@ -10,11 +10,13 @@ export interface AuthRequest extends Request {
  * Middleware to verify JWT token and protect routes
  */
 export const authenticateToken = (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ): void => {
   try {
+    const authReq = req as AuthRequest;
+    
     // Get token from Authorization header
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
@@ -26,7 +28,7 @@ export const authenticateToken = (
 
     // Verify token
     const decoded = verifyToken(token);
-    req.userId = decoded.userId;
+    authReq.userId = decoded.userId;
 
     next(); // Continue to next middleware/route
   } catch (error) {
