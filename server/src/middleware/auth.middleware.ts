@@ -1,14 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt.utils';
 
-// Extend Express Request to include userId
-export interface AuthRequest<
-  Params = any,
-  ResBody = any,
-  ReqBody = any,
-  ReqQuery = any
-> extends Request<Params, ResBody, ReqBody, ReqQuery> {
-  userId?: string;
+export interface AuthRequest<T = any> extends Request {
+  body: T;
+  user?: any; // or your user type
 }
 
 /**
