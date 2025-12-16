@@ -3,8 +3,9 @@ import { verifyToken } from '../utils/jwt.utils';
 
 export interface AuthRequest<T = any> extends Request {
   body: T;
+  params: any; // Add this
   user?: any;
-  userId?: string; // Add this property
+  userId?: string;
 }
 
 /**
@@ -27,7 +28,7 @@ export const authenticateToken = (
 
     // Verify token
     const decoded = verifyToken(token);
-    req.userId = decoded.userId; // Now TypeScript knows about userId
+    req.userId = decoded.userId;
 
     next(); // Continue to next middleware/route
   } catch (error) {
