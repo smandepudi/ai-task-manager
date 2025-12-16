@@ -3,7 +3,8 @@ import { verifyToken } from '../utils/jwt.utils';
 
 export interface AuthRequest<T = any> extends Request {
   body: T;
-  user?: any; // or your user type
+  user?: any;
+  userId?: string; // Add this property
 }
 
 /**
@@ -15,8 +16,6 @@ export const authenticateToken = (
   next: NextFunction
 ): void => {
   try {
-    const authReq = req as AuthRequest;
-    
     // Get token from Authorization header
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
@@ -28,7 +27,7 @@ export const authenticateToken = (
 
     // Verify token
     const decoded = verifyToken(token);
-    authReq.userId = decoded.userId;
+    req.userId = decoded.userId; // Now TypeScript knows about userId
 
     next(); // Continue to next middleware/route
   } catch (error) {
