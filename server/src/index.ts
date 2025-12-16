@@ -50,7 +50,7 @@ app.use((req: Request, res: Response) => {
 export default app;
 
 // Only listen when running locally (not on Vercel)
-if (process.env.NODE_ENV !== 'production') {
+if (!process.env.VERCEL) {
   const PORT = process.env.PORT || 5001;
   app.listen(PORT, () => {
     console.log(`✅ Server running on http://localhost:${PORT}`);
