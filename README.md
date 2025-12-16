@@ -4,8 +4,8 @@ A full-stack task management application with AI-powered features built with mod
 
 ## 🌟 Live Demo
 
-- **Frontend:** [View Live App](your-vercel-url-here)
-- **Repository:** [GitHub](your-github-url-here)
+- **Frontend:** [View Live App]https://ai-task-manager-red.vercel.app/login
+- **Repository:** [GitHub]https://github.com/smandepudi/ai-task-manager
 
 ## ✨ Features
 
