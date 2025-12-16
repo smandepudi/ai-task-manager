@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt.utils';
 
-// Simpler interface that properly extends Request
-export interface AuthRequest<
-  ReqBody = any,
-  ReqParams = any
-> extends Request<ReqParams, any, ReqBody, any> {
+// Explicitly define all properties
+export interface AuthRequest extends Request {
+  body: any;
+  params: any;
+  query: any;
   userId?: string;
   user?: any;
 }
