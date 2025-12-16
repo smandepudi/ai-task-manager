@@ -10,7 +10,7 @@ export interface AuthRequest extends Request {
  * Middleware to verify JWT token and protect routes
  */
 export const authenticateToken = (
-  req: Request,
+  req: AuthRequest,
   res: Response,
   next: NextFunction
 ): void => {
